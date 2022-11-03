@@ -55,13 +55,14 @@ public class WeatherForecastController : ControllerBase
             {"appid", _config.UC_APPID.ToString()}
         };
 
-        using var content = new FormUrlEncodedContent(nameValue);
-        
-        var client = _httpClientFactory.CreateClient("Discuz");
-        var response = await client.PostAsync(_config.UC_ROUTER, content);
+        // using var content = new FormUrlEncodedContent(nameValue);
+        //
+        // var client = _httpClientFactory.CreateClient("Discuz");
+        // var response = await client.PostAsync(_config.UC_ROUTER, content);
+
+        // return await response.Content.ReadAsStringAsync();
         
         var socketRsp = await DiscuzHelper.SendBySocketAsync(_config.UC_API, nameValue);
-
-        return await response.Content.ReadAsStringAsync();
+        return socketRsp;
     }
 }

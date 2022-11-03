@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
@@ -37,7 +38,7 @@ public static class DiscuzHelper
     
     private static string? UrlEncode(string? toEncode)
     {
-        return HttpUtility.UrlEncode(toEncode);
+        return WebUtility.UrlEncode(toEncode);
     }
 
     public static string ToQueryString(object queryModel)
@@ -115,19 +116,19 @@ public static class DiscuzHelper
         var port = matches.Port;
 
         var buffer = new StringBuilder();
-        var postData = string.Join("&", nvPair.Select(kv => $"{kv.Key}={UrlEncode(kv.Value)}"));
+        var postData = string.Join("&", nvPair.Select(kv => $"{kv.Key}={kv.Value}"));
         if (postData is { Length: > 0 })
         {
-            buffer.Append("POST ").Append(path).Append(" HTTP/1.0").Append(Environment.NewLine);
-            buffer.Append("Accept: */*").Append(Environment.NewLine);
-            buffer.Append("Accept-Language: zh-cn").Append(Environment.NewLine);
-            buffer.Append("Content-Type: application/x-www-form-urlencoded").Append(Environment.NewLine);
-            buffer.Append("User-Agent: ").Append(Environment.NewLine);
-            buffer.Append("Host: ").Append(host).Append(Environment.NewLine);
-            buffer.Append("Content-Length: ").Append(postData.Length).Append(Environment.NewLine);
-            buffer.Append("Connection: Close").Append(Environment.NewLine);
-            buffer.Append("Cache-Control: no-cache").Append(Environment.NewLine);
-            buffer.Append("Cookie: ").Append(Environment.NewLine).Append(Environment.NewLine);
+            buffer.Append("POST ").Append(path).Append(" HTTP/1.0\r\n");
+            buffer.Append("Accept: */*\r\n");
+            buffer.Append("Accept-Language: zh-cn\r\n");
+            buffer.Append("Content-Type: application/x-www-form-urlencoded\r\n");
+            buffer.Append("User-Agent: \r\n");
+            buffer.Append("Host: ").Append(host).Append("\r\n");
+            buffer.Append("Content-Length: ").Append(postData.Length).Append("\r\n");
+            buffer.Append("Connection: Close\r\n");
+            buffer.Append("Cache-Control: no-cache\r\n");
+            buffer.Append("Cookie: \r\n\r\n");
             buffer.Append(postData);
         }
 
