@@ -60,7 +60,7 @@ public static class DiscuzHelper
         key = MD5Encode(key);
         var keyA = MD5Encode(key.Substring(0, 16));
         var keyB = MD5Encode(key.Substring(16, 16));
-        var keyC = MD5Encode("1667440721000"/*DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString()*/)[^ckeyLen..];
+        var keyC = MD5Encode(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString())[^ckeyLen..];
         
         var cryptKey = keyA + MD5Encode(keyA + keyC);
         var keyLen = cryptKey.Length;
@@ -104,7 +104,7 @@ public static class DiscuzHelper
 
     public static string? InputEncode(string toAuth, string key)
     {
-        return UrlEncode(AuthEncode(toAuth + "&agent=" + MD5Encode("") + "&time=" + "1667440721"/*DateTimeOffset.UtcNow.ToUnixTimeSeconds()*/, key));
+        return UrlEncode(AuthEncode(toAuth + "&agent=" + MD5Encode("") + "&time=" + DateTimeOffset.UtcNow.ToUnixTimeSeconds(), key));
     }
 
 
