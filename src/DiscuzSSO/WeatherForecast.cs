@@ -25,6 +25,27 @@ public class DiscuzRegister
 
 }
 
+public class DiscuzLogin
+{
+    public string password { get; set; }
+    
+    public string questionid { get; set; }
+    
+    public string answer { get; set; }
+    
+    public string isuid { get; set; }
+    
+    public string checkques { get; set; }
+    
+    public string username { get; set; }
+
+}
+
+public class DiscuzSyncLogin
+{
+    public string uid { get; set; }
+}
+
 public class DiscuzUCenter
 {
     public string UC_IP { get; set; }

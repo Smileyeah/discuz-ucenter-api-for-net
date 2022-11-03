@@ -65,4 +65,46 @@ public class WeatherForecastController : ControllerBase
         var socketRsp = await DiscuzHelper.SendBySocketAsync(_config.UC_API, nameValue);
         return socketRsp;
     }
+    
+    [HttpPost]
+    public async Task<string> Login(DiscuzLogin model)
+    {
+        var queryStr = DiscuzHelper.ToQueryString(model);
+
+        var inputParam = DiscuzHelper.InputEncode(queryStr, _config.UC_KEY);
+        
+        var nameValue = new Dictionary<string, string>
+        {
+            { "m", "user" },
+            { "a", "login" },
+            { "inajax", "2" },
+            { "release", "20090212" },
+            { "input", inputParam},
+            {"appid", _config.UC_APPID.ToString()}
+        };
+        
+        var socketRsp = await DiscuzHelper.SendBySocketAsync(_config.UC_API, nameValue);
+        return socketRsp;
+    }
+    
+    [HttpPost]
+    public async Task<string> SyncLogin(DiscuzSyncLogin model)
+    {
+        var queryStr = DiscuzHelper.ToQueryString(model);
+
+        var inputParam = DiscuzHelper.InputEncode(queryStr, _config.UC_KEY);
+        
+        var nameValue = new Dictionary<string, string>
+        {
+            { "m", "user" },
+            { "a", "synlogin" },
+            { "inajax", "2" },
+            { "release", "20090212" },
+            { "input", inputParam},
+            {"appid", _config.UC_APPID.ToString()}
+        };
+        
+        var socketRsp = await DiscuzHelper.SendBySocketAsync(_config.UC_API, nameValue);
+        return socketRsp;
+    }
 }
