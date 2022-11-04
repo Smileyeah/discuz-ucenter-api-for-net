@@ -411,3 +411,8 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database 
 healthchecksdb
+/src/DiscuzSSO/bin/
+/src/DiscuzSSO/obj/
+/src/DiscuzSSO/Properties/
+/doc/discuzTest/
+/doc/examples/
